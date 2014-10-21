@@ -9,7 +9,7 @@ import java.sql.*;
  * @author Malaka
  */
 public class ConnectToDB {
-
+    
    private static ConnectToDB singleton = new ConnectToDB( );
    
    /* A private Constructor prevents any other 

@@ -5,7 +5,7 @@
  */
 
 package BusinessLogic;
-
+import DataAccess.AnnualPayments_DA;
 /**
  *
  * @author WaRLoCk
@@ -14,7 +14,8 @@ public class AnnualPayments {
     private String studentIndex;
     private boolean fee600_paid;
     private boolean fee60_paid;
-    private String paidDate;
+    private int year;
+    private AnnualPayments_DA annualPaymentsDA=null;
 
     public AnnualPayments(){
         fee600_paid=false;
@@ -62,6 +63,10 @@ public class AnnualPayments {
         this.fee60_paid = fee60_paid;
     }
     
+    public void enterData(){
+        annualPaymentsDA=new AnnualPayments_DA();
+        annualPaymentsDA.put(studentIndex, year, fee600_paid, fee60_paid);
+    }
     
     
     
