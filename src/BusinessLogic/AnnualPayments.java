@@ -66,7 +66,7 @@ public class AnnualPayments {
         this.fee60_paid = fee60_paid;
     }
     
-    public boolean enterData(){
+    public boolean sendToDB(){
         
         
         if(!annualPaymentsDA.checkForSiblings(studentIndex)){
