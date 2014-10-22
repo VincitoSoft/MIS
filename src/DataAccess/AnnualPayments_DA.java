@@ -14,8 +14,14 @@ import BusinessLogic.AnnualPayments;
  */
 public class AnnualPayments_DA {
     
-    public void put(String Studentid,int year,boolean fee600Paid,boolean fee60Paid){
+    public void put(int Studentid,int year,boolean fee600Paid,boolean fee60Paid){
         
     }
+    
+    public boolean checkForSiblings(int index){
+        return false; // return true if exist
+    }
+    
+   
       
 }

@@ -6,12 +6,13 @@
 
 package BusinessLogic;
 import DataAccess.AnnualPayments_DA;
+import java.util.Vector;
 /**
  *
  * @author WaRLoCk
  */
 public class AnnualPayments {
-    private String studentIndex;
+    private int studentIndex;
     private boolean fee600_paid;
     private boolean fee60_paid;
     private int year;
@@ -20,18 +21,20 @@ public class AnnualPayments {
     public AnnualPayments(){
         fee600_paid=false;
         fee60_paid=false;
+        
+        annualPaymentsDA=new AnnualPayments_DA();
     }
     /**
      * @return the studentIndex
      */
-    public String getStudentIndex() {
+    public int getStudentIndex() {
         return studentIndex;
     }
 
     /**
      * @param studentIndex the studentIndex to set
      */
-    public void setStudentIndex(String studentIndex) {
+    public void setStudentIndex(int studentIndex) {
         this.studentIndex = studentIndex;
     }
 
@@ -63,10 +66,24 @@ public class AnnualPayments {
         this.fee60_paid = fee60_paid;
     }
     
-    public void enterData(){
-        annualPaymentsDA=new AnnualPayments_DA();
+    public boolean enterData(){
+        
+        
+        if(!annualPaymentsDA.checkForSiblings(studentIndex)){
         annualPaymentsDA.put(studentIndex, year, fee600_paid, fee60_paid);
+        return true;
+        }
+        
+        else{
+            return false;
+        }
+        
     }
+    
+   
+    
+    
+    
     
     
     

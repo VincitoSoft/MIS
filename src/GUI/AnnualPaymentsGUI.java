@@ -118,7 +118,7 @@ public class AnnualPaymentsGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         String studentId=TextField_StudentId.getText();        
-        annualPayments.setStudentIndex(studentId);
+        annualPayments.setStudentIndex(Integer.parseInt(studentId));
         
         if(checkBox_60.isSelected()){
             annualPayments.setFee60_paid(true);
