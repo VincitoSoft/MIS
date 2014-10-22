@@ -21,15 +21,33 @@ public class MarksForSubject {
      
      private String className;
      
-     private Hashtable<Integer,Integer> termTestMarks;
-     private Hashtable<Integer,Integer> assignmentMarks;
-     private Hashtable<Integer,Integer> monthlyTestMarks;
+     private Hashtable termTestMarks[];
+     private Hashtable assignmentMarks[];
+     private Hashtable monthlyTestMarks[];
+     
+     private int currentTerm;
+     private int currentAssignment;
+     private int currentMonth;
+     
+     
      
      private MarksForSubject_DA marksForSubjectDA;
      
     public MarksForSubject(String name){
         this.subjectName=name;       
         marksForSubjectDA=new MarksForSubject_DA();
+        
+        for(int i=0;i<3;i++){
+            termTestMarks[i]=new Hashtable<Integer,Integer>();
+        }
+        for(int i=0;i<12;i++){
+            assignmentMarks[i]=new Hashtable<Integer,Integer>();
+        }
+        for(int i=0;i<12;i++){
+            monthlyTestMarks[i]=new Hashtable<Integer,Integer>();
+        }
+        
+        
     }
     
     public void setSubjectName(String name){
@@ -58,31 +76,39 @@ public class MarksForSubject {
     /**
      * @return the monthlyTestMarks
      */
-    public Hashtable<Integer,Integer> getMonthlyTestMarks() {
+    public Hashtable<Integer,Integer>[] getMonthlyTestMarks() {
         return monthlyTestMarks;
     }
 
     /**
      * @param monthlyTestMarks the monthlyTestMarks to set
      */
-    public void setMonthlyTestMarks(Hashtable<Integer,Integer> monthlyTestMarks) {
-        this.monthlyTestMarks = monthlyTestMarks;
-    }
     
-    public void addTermtestMark(int studentId,int marks){
-        termTestMarks.put(studentId, marks);
+    
+    public void addTermtestMark(int term,int studentId,int marks){
+        termTestMarks[term-1].put(studentId, marks);
     }
-    public void addMonthlyTestMark(int studentId,int marks){
-        monthlyTestMarks.put(studentId,marks);
+    public void addMonthlyTestMark(int month,int studentId,int marks){
+        monthlyTestMarks[month-1].put(studentId,marks);
     }
-     public void addAssignmentMark(int studentId,int marks){
-        assignmentMarks.put(studentId,marks);
+    public void addAssignmentMark(int assignmentNo,int studentId,int marks){
+        assignmentMarks[assignmentNo-1].put(studentId,marks);
     }
      
-    public void sendToDB(){
-        marksForSubjectDA.putAssignmentMarks(assignmentMarks);
-        marksForSubjectDA.putMonthlyTestMarks(monthlyTestMarks);
-        marksForSubjectDA.putTermTestMarks(termTestMarks);
+    public void sendToDB(int type,int term,Hashtable<Integer,Integer>marks){
+        switch(type){
+            case 1:
+                marksForSubjectDA.putAssignmentMarks(currentAssignment,assignmentMarks[term-1]);
+                break;
+            case 2:
+                marksForSubjectDA.putMonthlyTestMarks(currentMonth,monthlyTestMarks[term-1]);
+                break;
+            case 3:
+                marksForSubjectDA.putTermTestMarks(currentTerm,termTestMarks[term-1]);
+                break;
+        }
+       
+      
     }
     
     

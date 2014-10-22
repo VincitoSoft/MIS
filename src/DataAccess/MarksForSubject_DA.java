@@ -15,15 +15,15 @@ import java.util.Hashtable;
 public class MarksForSubject_DA {
     
     //Hashtable<studentId,marks>
-    public void putTermTestMarks(Hashtable<Integer,Integer>marks){ 
+    public void putTermTestMarks(int term,Hashtable<Integer,Integer>marks){ 
         
     }
     
-    public void putMonthlyTestMarks(Hashtable<Integer,Integer>marks){
+    public void putMonthlyTestMarks(int term,Hashtable<Integer,Integer>marks){
         
     }
     
-    public void putAssignmentMarks(Hashtable<Integer,Integer>marks){
+    public void putAssignmentMarks(int term,Hashtable<Integer,Integer>marks){
         
     }
 }
