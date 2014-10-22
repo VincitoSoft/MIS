@@ -5,6 +5,7 @@
  */
 package DataAccess;
 import Buiness_Logic.Student_Attendance;
+import java.sql.Date;
 /**
  *
  * @author Dilan Nuwantha
@@ -17,7 +18,8 @@ public class Student_Attendance_DA {
     
     
     
-    public int getAttendance(int student_ID){ // return attendance for corresponding student
+    public int getAttendance(int student_ID,int term){ // return attendance for corresponding student
+        
         return student_attendance;
     }
     
@@ -25,7 +27,13 @@ public class Student_Attendance_DA {
         return total_school_days;
     }
     
-    public void setStudentAttendance(int student_ID,int attendance){ // set attendance into the database
+    public void setStudentAttendance(int student_ID,int attendance,int term){ // set attendance into the database
         
     }
+    public Date getUpdateddate(){
+        Date dt = null;
+        
+        return dt;
+    }
+    
 }
