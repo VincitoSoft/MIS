@@ -5,42 +5,86 @@
  */
 package Buiness_Logic;
 import DataAccess.Student_Attendance_DA;
+import java.util.Date;
+import java.util.Hashtable;
 
 /**
  *
  * @author Dilan Nuwantha
  */
 public class Student_Attendance {
-       private int student_ID;
-       private int student_attendance;
-       private int temporary_student_attendance;
-       private boolean confirmed=false;
+       private Hashtable student_attendance[];
+               
+       private Hashtable<Integer,String> student_name=new Hashtable<Integer,String>();
+       private Student_Attendance_DA student_attendance_DA=new Student_Attendance_DA();
+       
+       
+       private String student_class;
+       private Date current_date,last_updated_dated,selected_date;
        private int total_school_days; // total number of days held upto now
+       
+       
+      //private int student_ID;
+      // private int student_attendance;
+      // private int temporary_student_attendance;
+       private boolean confirmed=false;
+       
        private boolean eighty_persent_warning=false;
        private int attendances_persentage;
+       private int term;
        
-        
-        
-        public void gui_setAttendance_for_a_date(){   // mark attendance for a day
-            temporary_student_attendance++;
+       
+       
+        public void Student_Attendance(String student_class){
+             this.student_class=student_class;
+             this.student_name=student_attendance_DA.getStudentNames(student_class);
+             this.last_updated_dated=student_attendance_DA.getUpdateddate();
+             this.current_date=new Date();
+             this.total_school_days=student_attendance_DA.getTotalSchoolDays();
+             
+             for(int i=0;i<3;i++){
+                student_attendance[i]=new Hashtable<Integer,Integer>();
+                student_attendance[i]=student_attendance_DA.getAttendance(student_class, i);
+            }
+             
         }
         
-        public void gui_setAttendance_for_week(int attendance){
-            this.temporary_student_attendance=attendance;
+        
+        public void getAttendance(){  // get attendance from DB to business_logic layer
+            for(int i=0;i<3;i++){
+                student_attendance[i]=new Hashtable<Integer,Integer>();
+                student_attendance[i]=student_attendance_DA.getAttendance(student_class, i);
+            }
         }
         
-        public void gui_confirmAttendance(){
-             this.student_attendance=temporary_student_attendance;
-             confirmed=true;
-        }
-        
-        public Object setAttendance_for_DB(){
-            if(confirmed)
-                return student_attendance;
+        public Hashtable getAttendanceUptoNow(int term){  // get attendance for the GUI
+            if(!student_attendance[term].isEmpty())
+                return student_attendance[term];
             else
                 return null;
         }
-        public int gui_absentDates(){
+        
+        public void setSelectedDate(Date selectedDate){
+            this.selected_date=selectedDate;
+        }
+        
+       /* public int checkAvailableTerm(){ // use to check the term by date
+           
+            return 0;
+        }*/
+        
+        public void setAttendance(Hashtable attendance,int term){
+            student_attendance[term]=attendance;
+        }
+        
+        
+        public void setConfirmSavedata(){
+            for(int i=0;i<3;i++){
+                student_attendance_DA.setStudentAttendance(student_attendance[i],i);
+            }
+        }
+        
+       /* public int gui_absentDates(){
             return total_school_days-student_attendance;
         }
         
@@ -53,40 +97,31 @@ public class Student_Attendance {
             
             return attendances_persentage;
         }
-    /**
-     * @return the student_ID
-     */
+    
     public int getStudent_ID() {
         return student_ID;
     }
 
-    /**
-     * @param student_ID the student_ID to set
-     */
+    
     public void setStudent_ID(int student_ID) {
         this.student_ID = student_ID;
     }
 
-    /**
-     * @return the student_attendance
-     */
+   
     public int gui_getStudent_attendance() {
         return student_attendance;
     }
 
-    /**
-     * @return the total_school_days
-     */
+  
     public int getTotal_school_days() {
         return total_school_days;
     }
 
-    /**
-     * @param total_school_days the total_school_days to set
-     */
+   
     public void setTotal_school_days(int total_school_days) {
         this.total_school_days = total_school_days;
-    }
+       
+    }*/
 
-   
+    
 }
