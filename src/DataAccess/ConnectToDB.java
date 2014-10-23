@@ -4,34 +4,47 @@
  */
 package DataAccess;
 import java.sql.*;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Malaka
  */
 public class ConnectToDB {
-    
-   private static ConnectToDB singleton = new ConnectToDB( );
-   
-   /* A private Constructor prevents any other 
-    * class from instantiating.
-    */
-  private ConnectToDB(){
-  
-  };
+
+    private static ConnectToDB singleton = new ConnectToDB();
+
+    /*
+     * A private Constructor prevents any other class from instantiating.
+     */
+    private ConnectToDB() {
+    }
+
+    ;
    
    /* Static 'instance' method */ 
-   public static ConnectToDB getInstance( ) {//This return the singleton object instance
-      return singleton;
-   }
-   /* Other methods protected by singleton-ness */
-   /**
-    * 
-    * @return
-    */
-   public Statement accessDataBase( ) {
-       Statement statement=null;
-       
-       return statement;
-      
-   }
+   public static ConnectToDB getInstance() {//This return the singleton object instance
+        return singleton;
+    }
+    /*
+     * Other methods protected by singleton-ness
+     */
+
+    /**
+     *
+     * @return
+     */
+    public Statement accessDataBase() {
+        Statement statement = null;
+        String dri = "com.mysql.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/MISDB";
+        try {
+            Class.forName(dri);
+            Connection con = DriverManager.getConnection(url, "root", "dinithi70060622");//Connect to the database 
+            statement = con.createStatement();
+        } catch (ClassNotFoundException | SQLException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        return statement;
+
+    }
 }

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package View;
+package GUI;
 
 import de.javasoft.plaf.synthetica.SyntheticaBlackStarLookAndFeel;
 import javax.swing.UIManager;

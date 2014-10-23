@@ -6,6 +6,7 @@
 
 package GUI;
 import BusinessLogic.AnnualPayments;
+import DataAccess.CheckAvailability;
 
 /**
  *
@@ -126,8 +127,10 @@ public class AnnualPaymentsGUI extends javax.swing.JFrame {
         
         if(checkBox_600.isSelected()){
             annualPayments.setFee600_paid(true);
-        }        
+        }
         
+        CheckAvailability ca=new CheckAvailability();
+        ca.checkAvailabity(Integer.parseInt(studentId));
     }//GEN-LAST:event_btnEnterActionPerformed
 
     /**

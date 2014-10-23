@@ -7,15 +7,33 @@
 package DataAccess;
 
 import BusinessLogic.AnnualPayments;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author WaRLoCk
  */
 public class AnnualPayments_DA {
-    
+    ConnectToDB conDB=ConnectToDB.getInstance();
+    Statement st=conDB.accessDataBase();//Creating a ststement to execute quaries
+    ResultSet rs;
     public void put(int Studentid,int year,boolean fee600Paid,boolean fee60Paid){
+        String qu1="select count(*) from Annual_Payments where Std_Index="+Studentid;
+        try {
+            rs=st.executeQuery(qu1);
+            rs.next();
+            if(rs.getInt(1)==0){
+                JOptionPane.showMessageDialog(null,"No UserId"+Studentid,"Warnning",2);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AnnualPayments_DA.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
     
